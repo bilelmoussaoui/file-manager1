@@ -18,6 +18,7 @@ impl<'a> FileManager1Proxy<'a> {
     }
 
     #[doc(alias = "ShowFolders")]
+    /// Show a or multiple folders
     pub async fn show_folders(&self, uris: &[&str], startup_id: &str) -> Result<()> {
         self.inner()
             .call_method("ShowFolders", &(uris, startup_id))
@@ -26,6 +27,7 @@ impl<'a> FileManager1Proxy<'a> {
     }
 
     #[doc(alias = "ShowItems")]
+    /// Select a or multiple files/folders.
     pub async fn show_items(&self, uris: &[&str], startup_id: &str) -> Result<()> {
         self.inner()
             .call_method("ShowItems", &(uris, startup_id))
@@ -34,10 +36,23 @@ impl<'a> FileManager1Proxy<'a> {
     }
 
     #[doc(alias = "ShowItemProperties")]
+    /// Show the file/folder properties
     pub async fn show_item_properties(&self, uris: &[&str], startup_id: &str) -> Result<()> {
         self.inner()
             .call_method("ShowItemProperties", &(uris, startup_id))
             .await?;
         Ok(())
+    }
+
+    #[doc(alias = "OpenLocations")]
+    /// Returns a list of opened URIs
+    pub async fn open_locations(&self) -> Result<Vec<String>> {
+        self.inner().get_property("OpenLocations").await
+    }
+
+    #[doc(alias = "OpenWindowsWithLocations")]
+    /// Returns a list of StartupID and the corresponding URIs
+    pub async fn open_windows_with_locations(&self) -> Result<Vec<(String, Vec<String>)>> {
+        self.inner().get_property("OpenWindowsWithLocations").await
     }
 }
