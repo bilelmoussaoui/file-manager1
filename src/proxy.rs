@@ -39,7 +39,7 @@ impl<'a> FileManager1<'a> {
     }
 
     #[doc(alias = "ShowItemProperties")]
-    /// Show the file/folder properties
+    /// Show the file/folder properties.
     pub async fn show_item_properties(&self, uris: &[&str], startup_id: &str) -> Result<()> {
         self.inner()
             .call_method("ShowItemProperties", &(uris, startup_id))
@@ -48,13 +48,13 @@ impl<'a> FileManager1<'a> {
     }
 
     #[doc(alias = "OpenLocations")]
-    /// Returns a list of opened URIs
+    /// Returns a list of opened URIs.
     pub async fn open_locations(&self) -> Result<Vec<String>> {
         self.inner().get_property("OpenLocations").await
     }
 
     #[doc(alias = "OpenWindowsWithLocations")]
-    /// Returns a list of StartupID and the corresponding URIs
+    /// Returns a list of StartupID and the corresponding URIs.
     pub async fn open_windows_with_locations(&self) -> Result<Vec<(String, Vec<String>)>> {
         self.inner().get_property("OpenWindowsWithLocations").await
     }
