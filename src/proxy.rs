@@ -1,9 +1,11 @@
 use zbus::Result;
 
-pub struct FileManager1Proxy<'a>(zbus::Proxy<'a>);
+/// A wrapper of the `org.freedesktop.FileManager1` DBus interface.
+pub struct FileManager1<'a>(zbus::Proxy<'a>);
 
-impl<'a> FileManager1Proxy<'a> {
-    pub async fn new(connection: &zbus::Connection) -> Result<FileManager1Proxy<'a>> {
+impl<'a> FileManager1<'a> {
+    /// Create a new instance of FileManager1.
+    pub async fn new(connection: &zbus::Connection) -> Result<FileManager1<'a>> {
         let proxy = zbus::ProxyBuilder::new_bare(connection)
             .interface("org.freedesktop.FileManager1")?
             .path("/org/freedesktop/FileManager1")?
@@ -13,6 +15,7 @@ impl<'a> FileManager1Proxy<'a> {
         Ok(Self(proxy))
     }
 
+    /// Get a reference to the underlying Proxy.
     pub fn inner(&self) -> &zbus::Proxy<'_> {
         &self.0
     }
